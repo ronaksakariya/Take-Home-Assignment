@@ -58,6 +58,21 @@ const update = (id, fields) => {
   return updated;
 };
 
+const assignTask = (id, assignee) => {
+  const task = findById(id);
+  if (!task) return null;
+
+  const updated = {
+    ...task,
+    assignee: assignee.trim(),
+  };
+
+  const index = tasks.findIndex((t) => t.id === id);
+  tasks[index] = updated;
+
+  return updated;
+};
+
 const remove = (id) => {
   const index = tasks.findIndex((t) => t.id === id);
   if (index === -1) return false;
@@ -93,6 +108,7 @@ module.exports = {
   getStats,
   create,
   update,
+  assignTask,
   remove,
   completeTask,
   _reset,
